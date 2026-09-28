@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zìyuán — Garden</title>
+  <title>Zìyuán — Plot list</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
@@ -12,173 +12,151 @@
 <body>
   <div class="app">
     <header class="topbar">
-      <a class="brand" href="index.html" style="text-decoration:none;color:inherit">
+      <a class="brand" href="index.html">
         <b>字園</b>
         <span>ZÌYUÁN</span>
       </a>
       <nav class="nav">
-        <button data-view="garden" class="active">Garden</button>
-        <button data-view="nursery">Nursery</button>
+        <button data-view="nursery" class="active">List</button>
         <button data-view="profile">Card</button>
+        <button data-view="garden">My pots</button>
         <button data-view="water">Water</button>
-        <button data-view="lesson">Tray</button>
       </nav>
       <div class="search">
-        <input id="q" placeholder="Search character / Zhuyin / pinyin / English" />
-      </div>
-      <div class="clockbox">
-        <span id="demo-flag">Demo clock</span>
-        <label class="chk"><input type="checkbox" id="demo-toggle" checked /> Fast</label>
-        <select id="demo-rate">
-          <option value="0.5">0.5 h/s</option>
-          <option value="2" selected>2 h/s</option>
-          <option value="12">12 h/s</option>
-          <option value="72">3 d/s</option>
-        </select>
+        <input id="q" placeholder="Search this plot" />
       </div>
     </header>
     <main>
-      <section class="view on" data-view="garden">
+      <section class="view on" data-view="nursery">
         <div class="hero">
           <div>
-            <h1>Garden</h1>
-            <p>Watering is a quiz, not rereading. Six wins and the plant counts as timber. Miss and it snaps back to four hours. Ignore it and it wilts, then dies, then you reseed.</p>
+            <h1 id="plot-title">Plot 1 · Street</h1>
+            <p>The whole bed. Scroll it. Tap a character for the full card.</p>
           </div>
-          <div class="stats">
-            <div class="stat"><b id="g-planted">0</b><span>planted</span></div>
-            <div class="stat"><b id="g-due">0</b><span>thirsty</span></div>
-            <div class="stat"><b id="g-bloom">0</b><span>in bloom</span></div>
-            <div class="stat"><b id="g-wilt">0</b><span>wilt / dead</span></div>
-          </div>
+          <div class="stat"><b id="n-count">0</b><span>in this list</span></div>
         </div>
-        <div class="actions">
-          <button class="btn" id="water-all">Water everything due</button>
-          <button class="btn ghost" id="clear-garden">Clear this browser garden</button>
-        </div>
-        <div class="pots" id="garden-pots"></div>
-      </section>
-
-      <section class="view" data-view="nursery">
-        <div class="hero">
-          <div>
-            <h1>Nursery</h1>
-            <p>Plot 1 is the open database: 1,200 street-and-screen characters, ordered by Taiwan text frequency. Plots 2–5 stay locked.</p>
-          </div>
-          <div class="stat"><b id="n-count">0</b><span>visible seeds</span></div>
-        </div>
-        <div class="beds">
-          <button data-lv="1" class="on">Plot 1 · Street 1–1200</button>
-          <button data-lv="2" class="locked" disabled>Plot 2 · soon</button>
-          <button data-lv="3" class="locked" disabled>Plot 3 · soon</button>
-          <button data-lv="4" class="locked" disabled>Plot 4 · soon</button>
-          <button data-lv="5" class="locked" disabled>Plot 5 · soon</button>
+        <div class="beds" id="plot-switch">
+          <button data-lv="1" class="on">1 Street</button>
+          <button data-lv="2" class="locked" disabled>2 Newsroom</button>
+          <button data-lv="3" class="locked" disabled>3 Hinterland</button>
+          <button data-lv="4" class="locked" disabled>4 Literary</button>
+          <button data-lv="5" class="locked" disabled>5 Well</button>
         </div>
         <div class="settings-row">
-          <label class="chk"><input type="checkbox" id="adult-toggle" /> Adult mems</label>
-          <label class="chk"><input type="checkbox" id="pinyin-toggle" /> Show pinyin</label>
+          <label class="chk"><input type="checkbox" id="pinyin-toggle" /> Pinyin</label>
           <span class="pager">
             <button class="btn ghost" id="prev-page">Prev</button>
             <span id="n-page">1</span>
             <button class="btn ghost" id="next-page">Next</button>
           </span>
         </div>
-        <div class="catalog-grid" id="catalog-grid"></div>
+        <div class="catalog-grid big" id="catalog-grid"></div>
       </section>
 
       <section class="view" data-view="profile">
-        <div class="lookup">
-          <div class="lookup-bar">
-            <div>
-              <div class="kicker">Dictionary</div>
-              <h1 class="lookup-title">Lookup</h1>
-            </div>
-            <label class="chk rich-toggle">
-              <input type="checkbox" id="rich-toggle" />
-              Full pot
-            </label>
-          </div>
-          <div class="flip-wrap" id="flip-wrap">
-            <div class="flip-card" id="flip-card">
-              <div class="flip-face flip-front">
-                <div class="tian replay" id="tian"><div class="big" id="p-glyph">字</div></div>
-                <div class="lookup-zy" id="p-zy"></div>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="en-card">
-                  <div class="kicker">English</div>
-                  <p id="p-en-short">—</p>
+        <div class="card-wrap">
+          <button class="btn ghost" id="back-list">← Back to list</button>
+          <div class="lookup">
+            <div class="flip-wrap">
+              <div class="flip-card" id="flip-card">
+                <div class="flip-face flip-front">
+                  <div class="tian replay" id="tian"><div class="big" id="p-glyph">字</div></div>
+                  <div class="lookup-zy" id="p-zy"></div>
+                </div>
+                <div class="flip-face flip-back">
+                  <div class="en-card">
+                    <div class="kicker">English</div>
+                    <p id="p-en-short">—</p>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="lookup-actions">
+              <button class="btn" id="btn-flip">Flip · English</button>
+              <button class="btn ghost" id="btn-speak-f">Female</button>
+              <button class="btn ghost" id="btn-speak-m">Male</button>
+              <button class="btn ghost" id="btn-replay">Replay brush</button>
+            </div>
           </div>
-          <div class="lookup-actions">
-            <button class="btn" id="btn-flip">Flip · English</button>
-            <button class="btn ghost" id="btn-speak-f">Female</button>
-            <button class="btn ghost" id="btn-speak-m">Male</button>
-            <button class="btn ghost" id="btn-replay">Replay brush</button>
+          <div class="dossier always" id="rich-panel">
+            <div class="glyph-stage compact">
+              <div class="meta-row">
+                <span class="chip lv" id="p-rank">#</span>
+                <span class="chip" id="p-stk"></span>
+                <span class="chip" id="p-stage"></span>
+              </div>
+              <div class="actions">
+                <button class="btn" id="btn-seed">Plant in my pots</button>
+                <button class="btn ghost" id="btn-tray" style="display:none">Tray</button>
+              </div>
+            </div>
+            <div class="panel">
+              <h2>What it does</h2>
+              <p class="lead" id="p-hook"></p>
+              <div class="meta-row" id="p-stone-chips"></div>
+              <p class="lead" id="p-weather"></p>
+              <h2>English</h2>
+              <p class="lead" id="p-en"></p>
+              <p class="lead" id="p-tw" style="display:none"></p>
+              <div class="readings" id="p-readings"></div>
+              <div class="meta-row"><span id="p-py"></span></div>
+              <h2>Words on this pot</h2>
+              <div class="words" id="p-words"></div>
+              <h2>Looks like</h2>
+              <div class="meta-row" id="p-look"></div>
+              <h2>Mem</h2>
+              <p class="lead">Needed before the first planting. Short and stupid works.</p>
+              <div class="mems" id="p-mems"></div>
+              <textarea id="new-mem" rows="2" placeholder="Invent one"></textarea>
+              <div class="actions">
+                <label class="chk"><input type="checkbox" id="mem-adult" /> Adult</label>
+                <button class="btn" id="btn-add-mem">Use this</button>
+              </div>
+              <h2>Notes</h2>
+              <textarea id="p-notes" rows="3" placeholder="Only this browser"></textarea>
+            </div>
           </div>
         </div>
-        <div class="dossier" id="rich-panel" hidden>
-          <div class="glyph-stage compact">
-            <div class="meta-row">
-              <span class="chip lv" id="p-rank">#</span>
-              <span class="chip" id="p-stk"></span>
-              <span class="chip" id="p-stage"></span>
-            </div>
-            <div class="actions">
-              <button class="btn" id="btn-seed">Plant in garden</button>
-              <button class="btn ghost" id="btn-tray">Add to tray</button>
-            </div>
+      </section>
+
+      <section class="view" data-view="garden">
+        <div class="hero">
+          <div>
+            <h1>My pots</h1>
+            <p>What you planted from this plot. Watering is a quiz.</p>
           </div>
-          <div class="panel">
-            <h2>Ledger</h2>
-            <p class="lead" id="p-hook"></p>
-            <div class="meta-row" id="p-stone-chips"></div>
-            <p class="lead" id="p-weather"></p>
-            <h2>Gloss</h2>
-            <p class="lead" id="p-en"></p>
-            <p class="lead" id="p-tw" style="display:none"></p>
-            <div class="readings" id="p-readings"></div>
-            <div class="meta-row"><span id="p-py"></span></div>
-            <h2>Taiwan words</h2>
-            <div class="words" id="p-words"></div>
-            <h2>Lookalikes</h2>
-            <div class="meta-row" id="p-look"></div>
-            <h2>Mem</h2>
-            <p class="lead">You pick one before the first planting. Dumber is better.</p>
-            <div class="mems" id="p-mems"></div>
-            <textarea id="new-mem" rows="2" placeholder="Invent one"></textarea>
-            <div class="actions">
-              <label class="chk"><input type="checkbox" id="mem-adult" /> Adult</label>
-              <button class="btn" id="btn-add-mem">Use this</button>
-            </div>
-            <h2>Private notes</h2>
-            <textarea id="p-notes" rows="3" placeholder="Stays on this browser"></textarea>
+          <div class="stats">
+            <div class="stat"><b id="g-planted">0</b><span>planted</span></div>
+            <div class="stat"><b id="g-due">0</b><span>thirsty</span></div>
+            <div class="stat"><b id="g-bloom">0</b><span>bloom</span></div>
+            <div class="stat"><b id="g-wilt">0</b><span>wilt</span></div>
           </div>
         </div>
+        <div class="actions">
+          <button class="btn" id="water-all">Water due pots</button>
+          <button class="btn ghost" id="clear-garden">Clear my pots</button>
+        </div>
+        <div class="clockbox" style="margin:8px 0 16px">
+          <span id="demo-flag">Demo clock</span>
+          <label class="chk"><input type="checkbox" id="demo-toggle" checked /> Fast</label>
+          <select id="demo-rate">
+            <option value="2" selected>2 h/s</option>
+            <option value="12">12 h/s</option>
+            <option value="72">3 d/s</option>
+          </select>
+        </div>
+        <div class="pots" id="garden-pots"></div>
       </section>
 
       <section class="view" data-view="water">
         <div class="hero">
           <div>
             <h1>Water</h1>
-            <p>Only thirsty and wilted pots. Character → meaning, or Zhuyin → character. A miss resets to four hours.</p>
+            <p>Character → meaning, or Zhuyin → character. A miss resets to four hours.</p>
           </div>
           <div class="stat"><b id="w-due">0</b><span>thirsty</span></div>
         </div>
         <div id="quiz-wrap"></div>
-      </section>
-
-      <section class="view" data-view="lesson">
-        <div class="hero">
-          <div>
-            <h1>Tray</h1>
-            <p>A holding tray. Graded beds come later.</p>
-          </div>
-          <div class="stat"><b id="tray-count">0</b><span>on the tray</span></div>
-        </div>
-        <div class="tray" id="tray"></div>
-        <p class="footer-note" id="lesson-note"></p>
       </section>
     </main>
   </div>

@@ -13,9 +13,9 @@
     save(data) { localStorage.setItem("ziyuan.v1", JSON.stringify(data)); },
   };
   const state = {
-    view: "garden", level: 1, query: "", page: 0, pageSize: 80,
+    view: "nursery", level: 1, query: "", page: 0, pageSize: 200,
     profileId: 1, tray: [], quizQueue: [], quizIdx: 0, demo: true,
-    demoHoursPerSec: 2, adult: false, showPinyin: false, rich: false, flipped: false,
+    demoHoursPerSec: 2, adult: false, showPinyin: false, rich: true, flipped: false,
     data: { plants: {}, mems: {}, votes: {}, chosenMem: {}, notes: {}, originReal: Date.now(), originPlant: Date.now() },
   };
   function nowPlant() {
@@ -130,7 +130,7 @@
     const box = $("#garden-pots");
     if (!box) return;
     if (!plants.length) {
-      box.innerHTML = `<div class="empty" style="grid-column:1/-1">Nothing planted yet. Open the nursery, pick a character, invent a mem, then plant it.</div>`;
+      box.innerHTML = `<div class="empty" style="grid-column:1/-1">No pots yet. Go to the list, tap a character, plant it.</div>`;
       return;
     }
     box.innerHTML = plants.map((p) => {
@@ -148,9 +148,12 @@
     const slice = list.slice(state.page * state.pageSize, (state.page + 1) * state.pageSize);
     if ($("#n-count")) $("#n-count").textContent = list.length;
     if ($("#n-page")) $("#n-page").textContent = `${state.page + 1} / ${pages}`;
+    const names = { 1: "Plot 1 · Street", 2: "Plot 2 · Newsroom", 3: "Plot 3 · Hinterland", 4: "Plot 4 · Literary", 5: "Plot 5 · Ancient well" };
+    if ($("#plot-title")) $("#plot-title").textContent = names[state.level] || "Plot";
+    $$("#plot-switch button").forEach((b) => b.classList.toggle("on", +b.dataset.lv === state.level));
     const grid = $("#catalog-grid");
     if (!grid) return;
-    grid.innerHTML = slice.map((c) => `<article class="tile ${plantOf(c.i) ? "planted" : ""}" data-id="${c.i}"><div class="r">#${c.i}</div><div class="g">${c.z}</div><div class="m">${c.zy || "·"}</div></article>`).join("");
+    grid.innerHTML = slice.map((c) => `<article class="tile ${plantOf(c.i) ? "planted" : ""}" data-id="${c.i}"><div class="r">#${c.i}</div><div class="g">${c.z}</div><div class="m">${c.zy || "·"}</div><div class="gloss">${escapeHtml(conciseEn(c.en))}</div></article>`).join("");
     grid.querySelectorAll(".tile").forEach((el) => { el.onclick = () => openProfile(+el.dataset.id); });
   }
   function openProfile(id) { state.profileId = id; state.flipped = false; setView("profile"); }
@@ -169,8 +172,7 @@
     if ($("#flip-card")) $("#flip-card").classList.toggle("flipped", state.flipped);
     if ($("#btn-flip")) $("#btn-flip").textContent = state.flipped ? "Flip · character" : "Flip · English";
     const richPanel = $("#rich-panel");
-    if (richPanel) richPanel.hidden = !state.rich;
-    if ($("#rich-toggle")) $("#rich-toggle").checked = state.rich;
+    if (richPanel) richPanel.hidden = false;
     if ($("#p-rank")) $("#p-rank").textContent = `freq #${c.i} · plot ${c.lv}`;
     if ($("#p-zy")) $("#p-zy").textContent = c.zy || "—";
     if ($("#p-py")) $("#p-py").textContent = state.showPinyin ? c.py || "" : "";
@@ -324,19 +326,22 @@
     if ($("#demo-rate")) $("#demo-rate").onchange = (e) => { state.demoHoursPerSec = +e.target.value; render(); };
     if ($("#water-all")) $("#water-all").onclick = () => { setView("water"); startQuiz(); };
     if ($("#clear-garden")) $("#clear-garden").onclick = () => { if (confirm("Clear the garden on this browser?")) { state.data.plants = {}; persist(); render(); } };
+    if ($("#back-list")) $("#back-list").onclick = () => setView("nursery");
   }
   function boot() {
     const saved = store.load();
     if (saved && saved.plants) Object.assign(state.data, saved);
-    try { state.rich = localStorage.getItem("ziyuan.rich") === "1"; } catch {}
+    try { state.rich = true; } catch {}
     const params = new URLSearchParams(location.search);
     const z = params.get("z");
+    const plot = +(params.get("plot") || 1);
+    if (plot === 1) state.level = 1;
     const first = ((Z() && Z().chars) || [])[0];
     if (z && charByZ(z)) state.profileId = charByZ(z).i;
     else if (first) state.profileId = first.i;
     bind();
     if (z && charByZ(z)) setView("profile");
-    else setView("garden");
+    else setView("nursery");
     setInterval(() => { if (state.view === "garden" || state.view === "water") render(); }, 1000);
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

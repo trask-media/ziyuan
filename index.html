@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zìyuán — Taiwan Mandarin character garden</title>
+  <title>Zìyuán — pick a plot</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="land">
@@ -16,45 +16,42 @@
       <b>字園</b>
       <span>ZÌYUÁN</span>
     </div>
-    <a class="btn ghost" href="garden.html">Open garden</a>
   </header>
-
   <main class="land-hero">
-    <p class="kicker">Taiwan Mandarin · Traditional · Zhuyin first · not HSK</p>
-    <h1>A sea of pots.</h1>
-    <p class="deck">Each character is one pot. Words hang off it later. Pick a plot to open the database. Plot one is cut and full. The rest of the slope is still in the ground.</p>
-
-    <div class="plots" id="plots">
+    <p class="kicker">Taiwan Mandarin · Traditional characters · Zhuyin first</p>
+    <h1>Which plot are you planting from?</h1>
+    <p class="deck">Five beds. One character per pot. Open a plot, scroll the list, tap any character for the full card. Only Plot 1 is in the ground today.</p>
+    <div class="plots">
       <a class="plot-card open" href="garden.html?plot=1">
         <div class="plot-pot">的</div>
         <div>
           <div class="plot-name">Plot 1 · Street</div>
-          <div class="plot-meta">Ranks 1–1,200 · 1,200 characters · open</div>
+          <div class="plot-meta">1–1,200 · menus, chat, screens · 1,200 open</div>
         </div>
-        <span class="plot-go">Enter</span>
+        <span class="plot-go">Open list</span>
       </a>
-      <button class="plot-card locked" type="button" data-soon="Newsroom">
+      <button class="plot-card locked" type="button" data-soon="Plot 2 · Newsroom">
         <div class="plot-pot dim">報</div>
         <div>
           <div class="plot-name">Plot 2 · Newsroom</div>
           <div class="plot-meta">1,201–2,400 · coming soon</div>
         </div>
       </button>
-      <button class="plot-card locked" type="button" data-soon="Hinterland">
+      <button class="plot-card locked" type="button" data-soon="Plot 3 · Hinterland">
         <div class="plot-pot dim">林</div>
         <div>
           <div class="plot-name">Plot 3 · Hinterland</div>
           <div class="plot-meta">2,401–3,600 · coming soon</div>
         </div>
       </button>
-      <button class="plot-card locked" type="button" data-soon="Literary">
+      <button class="plot-card locked" type="button" data-soon="Plot 4 · Literary">
         <div class="plot-pot dim">文</div>
         <div>
           <div class="plot-name">Plot 4 · Literary</div>
           <div class="plot-meta">3,601–4,800 · coming soon</div>
         </div>
       </button>
-      <button class="plot-card locked" type="button" data-soon="Ancient well">
+      <button class="plot-card locked" type="button" data-soon="Plot 5 · Ancient well">
         <div class="plot-pot dim">井</div>
         <div>
           <div class="plot-name">Plot 5 · Ancient well</div>
@@ -64,35 +61,24 @@
     </div>
     <p class="land-note" id="soon-note"></p>
   </main>
-
   <script>
-    const SEA = "的是不我一有大在人了中到資要以可這個你會好為上來學就交也用能如時文說沒他看那問生過對出而自行家得後裡台心所法如成國年現因發事方面於長將美同機分經種者實意正力理明動公從兩部度文台臺裡資這我不的是一人".split("");
+    const SEA = "的是不我一有大在人了中到資要以可這個你會好為上來學就交也用能如時文說沒他看那問生過對出而自行家得後裡台心所法成國年現因發事方面於長將美同機分經種者實意正力理明動公從兩部度臺".split("");
     const sea = document.getElementById("sea");
-    const n = Math.min(88, Math.floor((window.innerWidth * window.innerHeight) / 14000) + 36);
+    const n = Math.min(72, Math.floor((innerWidth * innerHeight) / 16000) + 28);
     for (let i = 0; i < n; i++) {
-      const el = document.createElement(i % 7 === 0 ? "a" : "span");
-      el.className = "float-pot" + (i % 5 === 0 ? " gold" : "");
+      const el = document.createElement("span");
+      el.className = "float-pot" + (i % 6 === 0 ? " gold" : "");
       el.textContent = SEA[i % SEA.length];
-      const x = ((i * 37) % 97) + Math.random() * 4;
-      const y = ((i * 53) % 91) + Math.random() * 5;
-      el.style.left = x + "vw";
-      el.style.top = y + "vh";
+      el.style.left = ((i * 37) % 97) + "vw";
+      el.style.top = ((i * 53) % 88) + "vh";
       el.style.animationDelay = (-Math.random() * 8) + "s";
-      el.style.animationDuration = (10 + Math.random() * 10) + "s";
-      el.style.setProperty("--s", (0.72 + Math.random() * 0.7).toFixed(2));
-      if (el.tagName === "A") {
-        el.href = "garden.html?plot=1&z=" + encodeURIComponent(el.textContent);
-        el.title = "Open " + el.textContent;
-      }
+      el.style.setProperty("--s", (0.7 + Math.random() * 0.55).toFixed(2));
       sea.appendChild(el);
     }
     document.querySelectorAll(".plot-card.locked").forEach((b) => {
       b.onclick = () => {
-        b.classList.remove("shake");
-        void b.offsetWidth;
-        b.classList.add("shake");
-        document.getElementById("soon-note").textContent =
-          b.dataset.soon + " is still in the ground. Only Plot 1 is open.";
+        b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake");
+        document.getElementById("soon-note").textContent = b.dataset.soon + " is still closed. Open Plot 1.";
       };
     });
   </script>

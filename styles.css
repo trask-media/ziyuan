@@ -171,19 +171,29 @@ main { flex: 1; padding: 18px 20px 88px; max-width: 1280px; margin: 0 auto; widt
   grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
   gap: 8px;
 }
+.catalog-grid.big {
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 10px;
+}
 .tile {
   background: #fffdf6;
   border: 1px solid var(--rule);
-  border-radius: 14px;
-  padding: 8px 4px 10px;
+  border-radius: 16px;
+  padding: 10px 6px 12px;
   text-align: center;
   cursor: pointer;
+  min-height: 124px;
 }
-.tile .g { font-family: var(--serif); font-size: 34px; line-height: 1.1; }
-.tile .m { font-size: 10px; color: var(--ink-soft); }
+.tile:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.tile .g { font-family: var(--serif); font-size: 40px; line-height: 1.05; }
+.tile .m { font-size: 12px; color: var(--moss-2); letter-spacing: .04em; }
 .tile .r { font-size: 10px; color: var(--gold); }
+.tile .gloss { font-size: 11px; color: var(--ink-soft); margin-top: 4px; line-height: 1.25; }
 .tile.planted { box-shadow: inset 0 0 0 2px var(--leaf); }
 .tile .twdot { color: var(--chip-tw); font-size: 10px; }
+.card-wrap { max-width: 980px; margin: 0 auto; }
+.dossier.always { display: grid; }
+a.brand { text-decoration: none; color: inherit; }
 
 .pager { display: flex; gap: 8px; align-items: center; margin: 14px 0; color: var(--ink-soft); font-size: 13px; }
 
