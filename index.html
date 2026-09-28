@@ -1,181 +1,100 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>字園 Zíyuán — 台灣華語字圍</title>
+  <title>Zìyuán — Taiwan Mandarin character garden</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700&family=Noto+Serif+TC:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <div class="app">
-    <header class="topbar">
-      <a class="brand" href="index.html" style="text-decoration:none;color:inherit">
-        <b>字園</b>
-        <span>ZÌYUÁN / 字圍</span>
+<body class="land">
+  <div class="sea" id="sea" aria-hidden="true"></div>
+  <header class="land-top">
+    <div class="brand">
+      <b>字園</b>
+      <span>ZÌYUÁN</span>
+    </div>
+    <a class="btn ghost" href="garden.html">Open garden</a>
+  </header>
+
+  <main class="land-hero">
+    <p class="kicker">Taiwan Mandarin · Traditional · Zhuyin first · not HSK</p>
+    <h1>A sea of pots.</h1>
+    <p class="deck">Each character is one pot. Words hang off it later. Pick a plot to open the database. Plot one is cut and full. The rest of the slope is still in the ground.</p>
+
+    <div class="plots" id="plots">
+      <a class="plot-card open" href="garden.html?plot=1">
+        <div class="plot-pot">的</div>
+        <div>
+          <div class="plot-name">Plot 1 · Street</div>
+          <div class="plot-meta">Ranks 1–1,200 · 1,200 characters · open</div>
+        </div>
+        <span class="plot-go">Enter</span>
       </a>
-      <nav class="nav">
-        <button data-view="garden" class="active">園</button>
-        <button data-view="nursery">苗圍</button>
-        <button data-view="profile">字檔</button>
-        <button data-view="water">澆水</button>
-        <button data-view="lesson">課床</button>
-      </nav>
-      <div class="search">
-        <input id="q" placeholder="搜 字 / 注音 / 拼音 / English / 台灣" />
-      </div>
-      <div class="clockbox">
-        <span id="demo-flag">示範鐘</span>
-        <label class="chk"><input type="checkbox" id="demo-toggle" checked /> 加速</label>
-        <select id="demo-rate">
-          <option value="0.5">0.5 時/秒</option>
-          <option value="2" selected>2 時/秒</option>
-          <option value="12">12 時/秒</option>
-          <option value="72">3 日/秒</option>
-        </select>
-      </div>
-    </header>
-    <main>
-      <section class="view on" data-view="garden">
-        <div class="hero">
-          <div>
-            <h1>園</h1>
-            <p>每一個字是一株植物。澆水是提取練習，不是重讀。六次答對才算長成園木。渴了會萎，萎了會枯，枯了要重播。</p>
-          </div>
-          <div class="stats">
-            <div class="stat"><b id="g-planted">0</b><span>已播</span></div>
-            <div class="stat"><b id="g-due">0</b><span>待澆</span></div>
-            <div class="stat"><b id="g-bloom">0</b><span>盛開</span></div>
-            <div class="stat"><b id="g-wilt">0</b><span>萎／枯</span></div>
-          </div>
+      <button class="plot-card locked" type="button" data-soon="Newsroom">
+        <div class="plot-pot dim">報</div>
+        <div>
+          <div class="plot-name">Plot 2 · Newsroom</div>
+          <div class="plot-meta">1,201–2,400 · coming soon</div>
         </div>
-        <div class="actions">
-          <button class="btn" id="water-all">澆所有到期</button>
-          <button class="btn ghost" id="clear-garden">清空本機園</button>
+      </button>
+      <button class="plot-card locked" type="button" data-soon="Hinterland">
+        <div class="plot-pot dim">林</div>
+        <div>
+          <div class="plot-name">Plot 3 · Hinterland</div>
+          <div class="plot-meta">2,401–3,600 · coming soon</div>
         </div>
-        <div class="pots" id="garden-pots"></div>
-      </section>
-      <section class="view" data-view="nursery">
-        <div class="hero">
-          <div>
-            <h1>苗圍</h1>
-            <p>公開站現在是一圍種子：10 個市井字。本機建置裡有 6000 字。</p>
-          </div>
-          <div class="stat"><b id="n-count">0</b><span>可見種子</span></div>
+      </button>
+      <button class="plot-card locked" type="button" data-soon="Literary">
+        <div class="plot-pot dim">文</div>
+        <div>
+          <div class="plot-name">Plot 4 · Literary</div>
+          <div class="plot-meta">3,601–4,800 · coming soon</div>
         </div>
-        <div class="beds">
-          <button data-lv="1" class="on">一圍 市井</button>
-          <button data-lv="0">全開</button>
+      </button>
+      <button class="plot-card locked" type="button" data-soon="Ancient well">
+        <div class="plot-pot dim">井</div>
+        <div>
+          <div class="plot-name">Plot 5 · Ancient well</div>
+          <div class="plot-meta">4,801–6,000 · coming soon</div>
         </div>
-        <div class="settings-row">
-          <label class="chk"><input type="checkbox" id="adult-toggle" /> 成人 mem</label>
-          <label class="chk"><input type="checkbox" id="pinyin-toggle" /> 顯示拼音</label>
-          <span class="pager">
-            <button class="btn ghost" id="prev-page">上一頁</button>
-            <span id="n-page">1</span>
-            <button class="btn ghost" id="next-page">下一頁</button>
-          </span>
-        </div>
-        <div class="catalog-grid" id="catalog-grid"></div>
-      </section>
-      <section class="view" data-view="profile">
-        <div class="lookup">
-          <div class="lookup-bar">
-            <div>
-              <div class="kicker">字典</div>
-              <h1 class="lookup-title">Lookup</h1>
-            </div>
-            <label class="chk rich-toggle">
-              <input type="checkbox" id="rich-toggle" />
-              Full pot
-            </label>
-          </div>
-          <div class="flip-wrap" id="flip-wrap">
-            <div class="flip-card" id="flip-card">
-              <div class="flip-face flip-front">
-                <div class="tian replay" id="tian"><div class="big" id="p-glyph">字</div></div>
-                <div class="lookup-zy" id="p-zy">ㄗˋ</div>
-              </div>
-              <div class="flip-face flip-back">
-                <div class="en-card">
-                  <div class="kicker">English</div>
-                  <p id="p-en-short">—</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="lookup-actions">
-            <button class="btn" id="btn-flip">Flip · English</button>
-            <button class="btn ghost" id="btn-speak-f">女聲</button>
-            <button class="btn ghost" id="btn-speak-m">男聲</button>
-            <button class="btn ghost" id="btn-replay">重播筆勢</button>
-          </div>
-        </div>
-        <div class="dossier" id="rich-panel" hidden>
-          <div class="glyph-stage compact">
-            <div class="meta-row">
-              <span class="chip lv" id="p-rank">#</span>
-              <span class="chip" id="p-stk"></span>
-              <span class="chip" id="p-stage"></span>
-            </div>
-            <div class="actions">
-              <button class="btn" id="btn-seed">播進園裡</button>
-              <button class="btn ghost" id="btn-tray">加入課床</button>
-            </div>
-          </div>
-          <div class="panel">
-            <h2>Ledger</h2>
-            <p class="lead" id="p-hook"></p>
-            <div class="meta-row" id="p-stone-chips"></div>
-            <p class="lead" id="p-weather"></p>
-            <h2>字檔</h2>
-            <p class="lead" id="p-en"></p>
-            <p class="lead" id="p-tw" style="display:none"></p>
-            <div class="readings" id="p-readings"></div>
-            <div class="meta-row"><span id="p-py"></span></div>
-            <h2>台灣詞束</h2>
-            <div class="words" id="p-words"></div>
-            <h2>形近</h2>
-            <div class="meta-row" id="p-look"></div>
-            <h2>Mem</h2>
-            <div class="mems" id="p-mems"></div>
-            <textarea id="new-mem" rows="2" placeholder="發明一則"></textarea>
-            <div class="actions">
-              <label class="chk"><input type="checkbox" id="mem-adult" /> 成人</label>
-              <button class="btn" id="btn-add-mem">選用</button>
-            </div>
-            <h2>筆記</h2>
-            <textarea id="p-notes" rows="3"></textarea>
-          </div>
-        </div>
-      </section>
-      <section class="view" data-view="water">
-        <div class="hero">
-          <div>
-            <h1>澆水</h1>
-            <p>只澆到期與枯萎。答錯退回 4 小時。</p>
-          </div>
-          <div class="stat"><b id="w-due">0</b><span>渴株</span></div>
-        </div>
-        <div id="quiz-wrap"></div>
-      </section>
-      <section class="view" data-view="lesson">
-        <div class="hero">
-          <div>
-            <h1>課床</h1>
-            <p>現在只是托盤。</p>
-          </div>
-          <div class="stat"><b id="tray-count">0</b><span>床上的字</span></div>
-        </div>
-        <div class="tray" id="tray"></div>
-        <p class="footer-note" id="lesson-note"></p>
-      </section>
-    </main>
-  </div>
-  <div class="toast" id="toast"></div>
-  <script src="catalog.js"></script>
-  <script src="app.js"></script>
+      </button>
+    </div>
+    <p class="land-note" id="soon-note"></p>
+  </main>
+
+  <script>
+    const SEA = "的是不我一有大在人了中到資要以可這個你會好為上來學就交也用能如時文說沒他看那問生過對出而自行家得後裡台心所法如成國年現因發事方面於長將美同機分經種者實意正力理明動公從兩部度文台臺裡資這我不的是一人".split("");
+    const sea = document.getElementById("sea");
+    const n = Math.min(88, Math.floor((window.innerWidth * window.innerHeight) / 14000) + 36);
+    for (let i = 0; i < n; i++) {
+      const el = document.createElement(i % 7 === 0 ? "a" : "span");
+      el.className = "float-pot" + (i % 5 === 0 ? " gold" : "");
+      el.textContent = SEA[i % SEA.length];
+      const x = ((i * 37) % 97) + Math.random() * 4;
+      const y = ((i * 53) % 91) + Math.random() * 5;
+      el.style.left = x + "vw";
+      el.style.top = y + "vh";
+      el.style.animationDelay = (-Math.random() * 8) + "s";
+      el.style.animationDuration = (10 + Math.random() * 10) + "s";
+      el.style.setProperty("--s", (0.72 + Math.random() * 0.7).toFixed(2));
+      if (el.tagName === "A") {
+        el.href = "garden.html?plot=1&z=" + encodeURIComponent(el.textContent);
+        el.title = "Open " + el.textContent;
+      }
+      sea.appendChild(el);
+    }
+    document.querySelectorAll(".plot-card.locked").forEach((b) => {
+      b.onclick = () => {
+        b.classList.remove("shake");
+        void b.offsetWidth;
+        b.classList.add("shake");
+        document.getElementById("soon-note").textContent =
+          b.dataset.soon + " is still in the ground. Only Plot 1 is open.";
+      };
+    });
+  </script>
 </body>
 </html>

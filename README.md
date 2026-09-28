@@ -1,8 +1,10 @@
-# 字園 Zíyuán
+# Zìyuán
 
-Taiwan Mandarin character garden. Traditional only. Zhuyin first. Not HSK.
+Taiwan Mandarin character garden. Traditional only. Zhuyin first. Not HSK. English UI for now.
 
-Repo: https://github.com/trask-media/ziyuan
 Live: https://trask-media.github.io/ziyuan/
 
-Enable Pages if the URL 404s: Settings → Pages → GitHub Actions, or Deploy from branch `main` / root.
+- Landing: sea of pots + plot picker
+- Plot 1 (1,200) is open
+- Plots 2–5 coming soon
+- Garden SRS stays in the browser
